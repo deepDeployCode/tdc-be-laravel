@@ -34,12 +34,13 @@ class AuthUserController extends Controller implements AuthUserInterface
         $validate = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|string',
+            'password' => 'required|confirmed|string|min:5',
         ], [
             'required' => ':attribute wajib di isi',
             'email' => 'format email salah',
             'confirmed' => 'password tidak sama',
-            'unique' => 'email ini sudah terdaftar harap gunakan email lain'
+            'unique' => 'email ini sudah terdaftar harap gunakan email lain',
+            'min' => 'password minimal 5 digit',
         ]);
         if ($validate->fails()) {
             $result = $this->errorValidation($validate->errors());
