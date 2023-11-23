@@ -3,7 +3,7 @@
 <h5>API tdc di build menggunakan framework laravel versi 8 dengan versi php 8.0, jadi pastikan versi php anda sudah diatas versi >=7, (framework laravel adalah salah satu framwork dari bahasa pemrograman php) </h5>
 
 <h5>
-aktifkan require dependancy php yang dibutukan untuk menjalankan framework tersebut, beberapa modul yang di harus di aktifkan ialah pdo_mysqli, mysqli, xml, mbstring, curl, xml, zip, tokenizer
+aktifkan require dependancy/module php yang dibutukan untuk menjalankan framework tersebut, beberapa modul yang di harus di aktifkan ialah pdo_mysqli, mysqli, xml, mbstring, curl, xml, zip, tokenizer
 </h5>
 
 # Composer Run
