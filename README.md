@@ -1,64 +1,95 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# introduce
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<h5>API tdc di build menggunakan framework laravel versi 8 dengan versi php 8.0, jadi pastikan versi php anda sudah diatas versi >=7, (framework laravel adalah salah satu framwork dari bahasa pemrograman php) </h5>
 
-## About Laravel
+<h5>
+aktifkan require module php yang dibutukan untuk menjalankan framework tersebut, beberapa modul yang di harus di aktifkan ialah pdo_mysqli, mysqli, xml, mbstring, curl, xml, zip, tokenizer
+</h5>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Composer Run
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```Bash
+composer install
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# Start Server
 
-## Learning Laravel
+```Bash
+php artisan serve
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# Migrate Run
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```Bash
+php artisan migrate
+# migrate refresh ketika ada update/perubahan schema column table
+php artisan migrate:refresh
+# jika ingin rollback table nya jalan kan perintah di bawah ini
+php artisan migrate:rollback
 
-## Laravel Sponsors
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+# Seeder Run
 
-### Premium Partners
+```Bash
+php artisan db:seed
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+# Endpoint Auth API
 
-## Contributing
+```Bash
+#baseUrl
+localhost:8000 -> sesuaikan dengan base url kalian
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#Login
+{{base_url}}/auth/login ->POST
 
-## Code of Conduct
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Access Ke Endpoint API Yang Menggunakan Session
 
-## Security Vulnerabilities
+<h5>jika ingin mengakses api yang menggunakan session, maka anda harus mengirimkan 3 buah object/param seperti dibawah ini, kirim ketiga buah object tersebut melalui request header</h5>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<h5>Object param yang dikirim lewat request header</h5>
 
-## License
+```JSON
+{
+    "Authorization": "Bearer {{token}}",
+    "X-HALOKAK-PLATFORM": "{{platform}}",
+    "X-HALOKAK-VERSION": "{{version}}"
+}
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Test Request
+
+```Bash
+
+curl -X GET \https://dev-api-halokak.betalogika.tech => base URL
+
+#hit login API via body/request params
+
+ curl -H 'Content-Type: application/json' \
+      -d '{ "email":"suryo@gmail.com", "password": "12345"}' \
+      -X POST \
+      https://dev-api-halokak.betalogika.tech/api/v1/mentor/auth/login
+
+#hit register API via body/request params
+
+ curl -H 'Content-Type: application/json' \
+      -d '{ "username":"arwan", "email": "arwan_admin@gmail.com", "password": "12345", "password_confirmation": "12345"}' \
+      -X POST \
+      https://dev-api-halokak.betalogika.tech/api/v1/admin/auth/register
+
+#hit logout API
+curl -H 'Authorization: Bearer {{token}}' \
+    -H 'X-HALOKAK-PLATFORM: web' \
+    -H 'X-HALOKAK-VERSION: 1.0.0' \
+    -X POST \
+    https://dev-api-halokak.betalogika.tech/api/v1/user/auth/logout
+
+curl -X POST \https://dev-api-halokak.betalogika.tech/api/v1/user/auth/logout => logout user
+curl -X POST \https://dev-api-halokak.betalogika.tech/api/v1/admin/auth/logout => logout admin
+curl -X POST \https://dev-api-halokak.betalogika.tech/api/v1/mentor/auth/logout => logout mentor
+
+
+```
