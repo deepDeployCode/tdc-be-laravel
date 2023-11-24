@@ -45,12 +45,13 @@ class AuthUserController extends Controller implements AuthUserInterface
         if ($validate->fails()) {
             $result = $this->errorValidation($validate->errors());
         } else {
-            $result = $this->builder($this->registerRepositories($request), 'Successfully Register');
+            $result = $this->registerRepositories($request);
         }
         return $result;
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
+        return $this->logoutRepositories();
     }
 }
