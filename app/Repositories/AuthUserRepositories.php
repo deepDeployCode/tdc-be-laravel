@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 trait AuthUserRepositories
@@ -28,5 +29,7 @@ trait AuthUserRepositories
     }
     public function logoutRepositories()
     {
+        $data = Auth::guard('api')->user()->token()->delete();
+        return $this->res()->builder($data, 'Successfully Logout');
     }
 }
