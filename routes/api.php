@@ -22,7 +22,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/register', [AuthUserController::class, 'register'])->name('register');
         Route::middleware('auth:api')->group(function () {
             Route::post('/logout', [AuthUserController::class, 'logout'])->name('logout');
-            Route::prefix('master-data/user')->group(function () {
+            Route::prefix('master-data/user')->group(function () { // master data with auth
                 Route::get('/', [UserController::class, 'list'])->name('list-userAuth');
                 Route::post('/', [UserController::class, 'store'])->name('store-userAuth');
                 Route::put('{id}', [UserController::class, 'update'])->name('update-userAuth');
@@ -30,7 +30,7 @@ Route::prefix('v1')->group(function () {
             });
         });
     });
-    Route::prefix('master-data')->group(function () {
+    Route::prefix('master-data')->group(function () { // master data without auth
         Route::prefix('user')->group(function () {
             Route::get('/', [UserController::class, 'list'])->name('list-user');
             Route::post('/', [UserController::class, 'store'])->name('store-user');
