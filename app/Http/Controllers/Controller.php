@@ -40,4 +40,12 @@ class Controller extends BaseController
         }
         return response()->json($res, $statusCode);
     }
+
+    public function limit($request)
+    {
+        $limit = 20;
+        if ($limit >= $request->limit) {
+            return $limit = $request->limit;
+        }
+    }
 }

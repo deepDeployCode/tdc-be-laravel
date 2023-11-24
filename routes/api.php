@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthUserController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Masterdata\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,12 +16,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 //create route api for v1
-Route::group(['prefix' => 'v1'], function () {
-    Route::group(['prefix' => 'auth'], function () {
+Route::prefix('v1')->group(function () {
+    Route::prefix('auth')->group(function () {
         Route::post('/login', [AuthUserController::class, 'login'])->name('login');
         Route::post('/register', [AuthUserController::class, 'register'])->name('register');
         Route::middleware('auth:api')->group(function () {
             Route::post('/logout', [AuthUserController::class, 'logout'])->name('logout');
+        });
+    });
+    Route::prefix('master-data')->group(function () {
+        Route::prefix('user')->group(function () {
+            Route::get('/', [UserController::class, 'list'])->name('list-user');
+            Route::post('/', [UserController::class, 'store'])->name('store-user');
+            Route::put('{id}', [UserController::class, 'update'])->name('update-user');
+            Route::delete('{id}', [UserController::class, 'delete'])->name('delete-user');
+        });
+        Route::middleware('auth:api')->group(function () {
         });
     });
 });
