@@ -22,6 +22,12 @@ Route::prefix('v1')->group(function () {
         Route::post('/register', [AuthUserController::class, 'register'])->name('register');
         Route::middleware('auth:api')->group(function () {
             Route::post('/logout', [AuthUserController::class, 'logout'])->name('logout');
+            Route::prefix('master-data/user')->group(function () {
+                Route::get('/', [UserController::class, 'list'])->name('list-userAuth');
+                Route::post('/', [UserController::class, 'store'])->name('store-userAuth');
+                Route::put('{id}', [UserController::class, 'update'])->name('update-userAuth');
+                Route::delete('{id}', [UserController::class, 'delete'])->name('delete-userAuth');
+            });
         });
     });
     Route::prefix('master-data')->group(function () {
@@ -30,8 +36,6 @@ Route::prefix('v1')->group(function () {
             Route::post('/', [UserController::class, 'store'])->name('store-user');
             Route::put('{id}', [UserController::class, 'update'])->name('update-user');
             Route::delete('{id}', [UserController::class, 'delete'])->name('delete-user');
-        });
-        Route::middleware('auth:api')->group(function () {
         });
     });
 });
