@@ -11,7 +11,6 @@ use App\Repositories\AuthUserRepositories;
 class AuthUserController extends Controller implements AuthUserInterface
 {
     use AuthUserRepositories;
-
     public function login(Request $request)
     {
         $validate = Validator::make($request->all(), [
@@ -28,7 +27,6 @@ class AuthUserController extends Controller implements AuthUserInterface
         }
         return $result;
     }
-
     public function register(Request $request)
     {
         $validate = Validator::make($request->all(), [
@@ -49,7 +47,6 @@ class AuthUserController extends Controller implements AuthUserInterface
         }
         return $result;
     }
-
     public function logout()
     {
         return $this->logoutRepositories();
