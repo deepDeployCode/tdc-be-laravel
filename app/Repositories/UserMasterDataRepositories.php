@@ -35,10 +35,14 @@ trait UserMasterDataRepositories
         if (!$id && !$id > 0) { // id not field then error
             return $this->res()->builder('id null', 'id wajib di masukan', 422);
         } else {
-            $updateOnly = $request->only('name', 'email');
-            if ($request->password) $updateOnly['password'] = Hash::make($request->password); // update password optional, in this statement code will operation event users field the password
-            User::whereId($id)->update($updateOnly); //update data user
-            return $this->res()->builder($updateOnly, 'Successfully Update User');
+            if ($user = User::whereId($id)->first()) { // check id user before update user
+                $updateOnly = $request->only('name', 'email');
+                if ($request->password) $updateOnly['password'] = Hash::make($request->password); // update password optional, in this statement code will operation event users field the password
+                $user->update($updateOnly); //update data user
+                return $this->res()->builder($updateOnly, 'Successfully Update User');
+            } else {
+                return $this->res()->builder('failed delete', 'id tidak di temukan', 422);
+            }
         }
     }
     public function deleteRepositories($id)
