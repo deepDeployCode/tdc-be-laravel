@@ -15,7 +15,7 @@ trait UserMasterDataRepositories
     }
     public function listRepositories($request)
     {
-        $data =  User::orderByDesc('id')
+        $data =  User::orderBy('id')
             ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'like', "%{$request->name}%");
             })->when($request->email, function ($query) use ($request) {
