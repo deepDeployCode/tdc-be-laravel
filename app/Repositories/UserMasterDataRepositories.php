@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserListResource;
 use Illuminate\Support\Facades\Hash;
 
 trait UserMasterDataRepositories
@@ -14,7 +15,7 @@ trait UserMasterDataRepositories
     }
     public function listRepositories($request)
     {
-        return User::orderByDesc('id')
+        $data =  User::orderByDesc('id')
             ->when($request->name, function ($query) use ($request) {
                 $query->where('name', 'like', "%{$request->name}%");
             })->when($request->email, function ($query) use ($request) {
@@ -22,7 +23,9 @@ trait UserMasterDataRepositories
             })->when($request->id, function ($query) use ($request) {
                 $query->where('id', 'like', "%{$request->id}%");
             })
-            ->paginate($this->res()->limit($request));
+            ->get();
+        // ->paginate($this->res()->limit($request)); // not use pagination
+        return UserListResource::collection($data);
     }
     public function storeRepositories($request)
     {
