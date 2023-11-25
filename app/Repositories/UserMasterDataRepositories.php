@@ -27,6 +27,10 @@ trait UserMasterDataRepositories
         // ->paginate($this->res()->limit($request)); // not use pagination
         return UserListResource::collection($data);
     }
+    public function detailDataRepositories($id)
+    {
+        return $this->res()->resDetail(User::whereId($id)->firstOrFail());
+    }
     public function storeRepositories($request)
     {
         $createUserOnly = $request->only('name', 'email', 'password');

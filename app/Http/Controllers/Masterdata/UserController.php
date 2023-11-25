@@ -15,6 +15,10 @@ class UserController extends Controller implements UserMasterDataInterface
     {
         return $this->listRepositories($request);
     }
+    public function detail($id)
+    {
+        return $this->detailDataRepositories($id);
+    }
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [

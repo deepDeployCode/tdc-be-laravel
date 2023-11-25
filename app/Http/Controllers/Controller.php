@@ -11,7 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function errorValidation($errors)
+    protected static function errorValidation($errors)
     {
         $collectError = collect($errors); //collect error all
         $storeResError = collect([]); // store result error validation
@@ -25,7 +25,7 @@ class Controller extends BaseController
         return response()->json(['message' => 'Data tidak lengkap', 'errors' => $storeResError], 422);
     }
 
-    public function builder($data, String $message = 'Successfully Data', int $statusCode = 200)
+    protected static function builder($data, String $message = 'Successfully Data', int $statusCode = 200)
     {
         switch ($statusCode) {
             case 200:
@@ -41,7 +41,12 @@ class Controller extends BaseController
         return response()->json($res, $statusCode);
     }
 
-    public function limit($request)
+    protected static function resDetail($data)
+    {
+        return response()->json($data);
+    }
+
+    protected static function limit($request)
     {
         $limit = 20;
         if ($limit >= $request->limit) {
