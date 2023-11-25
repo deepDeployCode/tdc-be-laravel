@@ -20,12 +20,6 @@ aktifkan require dependancy/module php yang dibutukan untuk menjalankan framewor
 composer install
 ```
 
-# Start Server
-
-```Bash
-php artisan serve
-```
-
 # Migrate Run
 
 ```Bash
@@ -41,6 +35,18 @@ php artisan migrate:rollback (optional)
 
 ```Bash
 php artisan db:seed
+```
+
+# Passport JWT install
+
+```Bash
+php artisan passport:install
+```
+
+# Start Server
+
+```Bash
+php artisan serve
 ```
 
 # Test Endpoint API
