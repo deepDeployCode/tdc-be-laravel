@@ -56,7 +56,7 @@ php artisan serve
 {{base_url}}/api/v1/auth/login ->POST
 
 #baseUrl
-sesuaikan dengan base url di local masing-masing. ex:http://localhost:8000
+sesuaikan dengan base url di local masing-masing. ex:http://localhost:8000 atau http://127.0.0.1:8000
 akan tetapi jika ingin menggunakan base url dari server maka. ex: https://dev-api-tdc.betalogika.tech
 ```
 
