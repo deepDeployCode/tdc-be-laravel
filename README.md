@@ -6,6 +6,14 @@
 aktifkan require dependancy/module php yang dibutukan untuk menjalankan framework tersebut, beberapa modul yang di harus di aktifkan ialah pdo_mysqli, mysqli, xml, mbstring, curl, xml, zip, tokenizer
 </h5>
 
+```bash
+#dependancy yang digunakan:
+1. passport JWT
+2. psr/http-message
+3. oauth2-server
+
+```
+
 # Composer Run
 
 ```Bash
@@ -21,11 +29,11 @@ php artisan serve
 # Migrate Run
 
 ```Bash
-php artisan migrate
+php artisan migrate (wajib)
 # migrate refresh ketika ada update/perubahan schema column table
-php artisan migrate:refresh
+php artisan migrate:refresh (optional)
 # jika ingin rollback table nya jalan kan perintah di bawah ini
-php artisan migrate:rollback
+php artisan migrate:rollback (optional)
 
 ```
 
@@ -35,15 +43,15 @@ php artisan migrate:rollback
 php artisan db:seed
 ```
 
-# Endpoint Auth API
+# Test Endpoint API
 
 ```Bash
-#baseUrl
-localhost:8000 -> sesuaikan dengan base url kalian
-
 #Login
 {{base_url}}/api/v1/auth/login ->POST
 
+#baseUrl
+sesuaikan dengan base url di local masing-masing. ex:http://localhost:8000
+akan tetapi jika ingin menggunakan base url dari server maka. ex: https://dev-api-tdc.betalogika.tech
 ```
 
 # Access Ke Endpoint API Yang Menggunakan Session
