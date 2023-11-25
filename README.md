@@ -54,6 +54,7 @@ localhost:8000 -> sesuaikan dengan base url kalian
 
 ```JSON
 {
+    "Content-Type": "application/json",
     "Accept": "application/json",
     "Authorization": "Bearer {{token}}",
 }
